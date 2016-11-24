@@ -86,11 +86,10 @@ class Adapter implements GatewayInterface {
 		]));
 		$sofort->setTimeoutUrl($timeout);
 
-		// @todo: enable when testing is finished locally
-//		$notify = elgg_normalize_url(elgg_http_add_url_query_elements('payments/sofort/notify', [
-//			'transaction_id' => $transaction->transaction_id,
-//		]));
-//		$sofort->setNotificationUrl($notify);
+		$notify = elgg_normalize_url(elgg_http_add_url_query_elements('payments/sofort/notify', [
+			'transaction_id' => $transaction->transaction_id,
+		]));
+		$sofort->setNotificationUrl($notify);
 
 		$sofort->sendRequest();
 		if ($sofort->isError()) {
