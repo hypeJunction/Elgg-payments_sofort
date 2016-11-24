@@ -11,19 +11,6 @@ $transaction = Transaction::getFromId($transaction_id);
 $error = false;
 if ($transaction) {
 	$sofort_adapter = new Adapter();
-
-	$merchant = $transaction->getMerchant();
-	if ($merchant->sofort_config_key) {
-		$config_key = $merchant->sofort_config_key;
-	}
-	$config_key = elgg_trigger_plugin_hook('payee_config_key', 'sofort', [
-		'transction' => $transaction,
-	], $config_key);
-
-	if ($config_key) {
-		$sofort_adatapter->setConfigKey($config_key);
-	}
-	
 	$response = $sofort_adapter->pay($transaction);
 } else {
 	$error = elgg_echo('payments:error:not_found');

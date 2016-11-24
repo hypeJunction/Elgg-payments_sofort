@@ -94,9 +94,6 @@ class Adapter implements GatewayInterface {
 
 		$sofort->sendRequest();
 		if ($sofort->isError()) {
-			var_dump($this->getConfigKey());
-			var_dump($sofort->getErrors());
-			die();
 			elgg_log($sofort->getError(), 'ERROR');
 			return false;
 		} else {
@@ -128,7 +125,7 @@ class Adapter implements GatewayInterface {
 
 		$sofort_transaction = new TransactionData($this->getConfigKey());
 		$sofort_transaction->addTransaction($transaction->sofort_transaction_id);
-		$sofort_transaction->setApiVersion('2.0');
+		$sofort_transaction->setApiVersion('3.0');
 		$sofort_transaction->sendRequest();
 
 		if ($sofort_transaction->isError()) {
@@ -197,7 +194,7 @@ class Adapter implements GatewayInterface {
 				}
 
 				$refunded_amount = -$refunded_amount;
-				
+
 				if ($sofort_refunded > $refunded_amount) {
 					$refund = new Refund();
 					$refund->setTimeCreated(time())
@@ -226,7 +223,6 @@ class Adapter implements GatewayInterface {
 		}
 
 		$refund = new SofortRefund($this->getConfigKey());
-		//$refund->setSenderSepaAccount('SFRTDE20XXX', 'DE11888888889999999999', 'Max Mustermann');
 		$refund->addRefund($transaction->sofort_transaction_id, $transaction->getAmount()->getConvertedAmount());
 		$refund->sendRequest();
 
@@ -235,12 +231,7 @@ class Adapter implements GatewayInterface {
 			return false;
 		}
 
-		$url = $refund->getPaymentUrl();
-
-		if (!$url) {
-			return false;
-		}
-		return elgg_redirect_response($url);
+		return true;
 	}
 
 	/**
@@ -274,23 +265,10 @@ class Adapter implements GatewayInterface {
 	}
 
 	/**
-	 * Set the config key
-	 * 
-	 * @param string $config_key Config key
-	 * @return void
-	 */
-	public function setConfigKey($config_key) {
-		$this->config_key = $config_key;
-	}
-
-	/**
 	 * Returns Sofort project config key
 	 * @return string
 	 */
 	public function getConfigKey() {
-		if (isset($this->config_key)) {
-			return $this->config_key;
-		}
 
 		$mode = elgg_get_plugin_setting('environment', 'payments', 'sandbox');
 

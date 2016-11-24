@@ -9,3 +9,10 @@ Sofort Payments for Elgg
 ## Acknowledgements
 
  * Plugin has been sponsored by [Social Business World] (https://socialbusinessworld.org "Social Business World")
+
+## Notes
+
+### Refunds
+
+Refunds issued via the plugin will be prepared and available in your Sofort account under Refunds.
+You will need to manually consolidate them and issue payments.

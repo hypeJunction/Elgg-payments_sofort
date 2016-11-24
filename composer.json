@@ -16,7 +16,7 @@
 	"require": {
 		"composer/installers": "~1.0",
 		"hypejunction/payments": "~2.0",
-		"sofort/sofortlib-php": "~3.2"
+		"sofort/sofortlib-php": "3.1.0"
 	},
 	"autoload": {
 		"psr-0": {
