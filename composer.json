@@ -1,0 +1,27 @@
+{
+	"name": "hypejunction/payments_sofort",
+	"type": "elgg-plugin",
+	"description": "Sofort Payments for Elgg",
+	"homepage": "http://hypejunction.com",
+	"keywords": [
+		"elgg", "plugin", "sofort", "payments"
+	],
+	"license": "GPL-2.0",
+	"authors": [
+		{
+			"name": "Ismayil Khayredinov",
+			"email": "info@hypejunction.com"
+		}
+	],
+	"require": {
+		"composer/installers": "~1.0",
+		"hypejunction/payments": "~2.0",
+		"sofort/sofortlib-php": "~3.2"
+	},
+	"autoload": {
+		"psr-0": {
+			"": "classes/"
+		}
+	}
+}
+
